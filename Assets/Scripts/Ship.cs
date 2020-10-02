@@ -13,6 +13,8 @@ public class Ship : MonoBehaviour
     public Gun selected;
     float timeBetweenShots;
     float next;
+    public ParticleSystem left;
+    public ParticleSystem right;
 
     bool dash = false;
     Rigidbody2D rb;
@@ -42,6 +44,13 @@ public class Ship : MonoBehaviour
             rb.AddForce(direction*speed, ForceMode2D.Force);
             transform.rotation = Quaternion.Euler(0f, 0f, rotation+offset);
             shoot();
+            left.startLifetime = Mathf.Clamp(0.5f * rb.velocity.magnitude,0,1);
+            right.startLifetime = Mathf.Clamp(0.5f * rb.velocity.magnitude, 0, 1);
+        }
+        else
+        {
+            left.startLifetime = 0;
+            right.startLifetime = 0;
         }
     }
     void updateTimeBetweenShots()
@@ -55,5 +64,9 @@ public class Ship : MonoBehaviour
             selected.shoot();
             next = Time.time + timeBetweenShots;
         }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.collider.name);
     }
 }
