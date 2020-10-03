@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Enemy : MonoBehaviour
     public GameObject indicator;
     public GameManager gameManager;
     public float speed = 1f;
+    bool destroyed = false;
     Renderer renderer;
     // Start is called before the first frame update
     void Start()
@@ -18,16 +20,18 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(this.transform.position, player.transform.position - transform.position);
         transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, speed*Time.deltaTime);
-        if(!renderer.isVisible)
+        viewIndicator();
+    }
+
+    private void viewIndicator()
+    {
+        if (!renderer.isVisible)
         {
-            Debug.Log("Invisible");
             RaycastHit2D ray = Physics2D.Raycast(transform.position, player.transform.position - transform.position);
-            Debug.Log(ray.collider.name);
-            if(ray.collider!=null)
+            if (ray.collider != null)
             {
-                if(ray.collider.CompareTag("Player"))
+                if (ray.collider.CompareTag("Player"))
                 {
                     indicator.SetActive(true);
                     indicator.transform.position = ray.point;
@@ -36,18 +40,28 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if(indicator.activeSelf)
+            if (indicator.activeSelf)
             {
                 indicator.SetActive(false);
             }
         }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.collider.CompareTag("Bullet"))
         {
-            gameManager.noOfObstacles--;
+            if (!destroyed)
+            {
+                gameManager.noOfObstacles--;
+                gameManager.AddScore(20);
+                destroyed = true;
+            }
             Destroy(gameObject);
+        }
+        else if(collision.collider.CompareTag("Player"))
+        {
+            gameManager.GameOver();
         }
         
     }

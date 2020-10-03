@@ -1,49 +1,72 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     private const float spawnRadius = 50f;
     public GameObject player;
     public GameObject[] obstacles;
-    public GameObject[] bgElements;
+    public GameObject powerUp;
+    public GameObject gameOverScreen;
+    public Text scoreText;
+    public Text GameOverText;
     public int noOfObstacles=0;
     public int noOfBGElements=0;
+    public int selectedGun;
+    int score;
+    public float nextPowerup;
+    public bool spawnPowerup;
+    public Color[] colors;
     // Start is called before the first frame update
     void Start()
     {
-        
+        nextPowerup = 0;
+        spawnPowerup = true;
+        gameOverScreen.SetActive(false);
+        score = 0;
+        scoreText.text = "0";
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(noOfObstacles<0)
+        {
+            noOfObstacles = 0;
+        }
         if(noOfObstacles<5)
         {
             spawnObstacle();
         }
-       /* if (noOfBGElements < 5)
+        if (spawnPowerup&&Time.time>nextPowerup)
         {
-            spawnBGElement();
+            spawnPowerUp();
+            spawnPowerup = false;
         }
-       */
+       
     }
 
-    private void spawnBGElement()
+    private void spawnPowerUp()
     {
-        Vector2 point = player.GetComponent<Rigidbody2D>().velocity;
-        point.x += player.transform.position.x+15f;
-        point.y += player.transform.position.y-12f;
-        GameObject bgElement = Instantiate(bgElements[0], point, Quaternion.identity);
-        BGElement b = bgElement.GetComponent<BGElement>();
-        b.player = player;
-        b.gameManager = this;
-        noOfBGElements++;
+            Vector3 point = (Random.insideUnitSphere * spawnRadius) + player.transform.position;
+            point.z = 0f;
+            GameObject obstacle = Instantiate(powerUp, point, Quaternion.identity);
+            PowerUp p = obstacle.GetComponent<PowerUp>();
+            p.player = player;
+            p.gameManager = this;
+            int gun;
+            do
+            {
+                gun = Random.Range(0, 3);
+            } while (gun == selectedGun);
+            p.gunNo = gun;
+            p.GetComponent<SpriteRenderer>().color = colors[gun];
     }
 
     private void spawnObstacle()
     {
-        Vector3 point = (UnityEngine.Random.insideUnitSphere * spawnRadius) + player.transform.position;
+        Vector3 point = (Random.insideUnitSphere * spawnRadius) + player.transform.position;
         point.z = 0f;
         GameObject obstacle = Instantiate(obstacles[0], point,Quaternion.identity);
         Enemy e = obstacle.GetComponent<Enemy>();
@@ -51,5 +74,25 @@ public class GameManager : MonoBehaviour
         e.speed = 7f;
         e.gameManager = this;
         noOfObstacles++;
+    }
+    public void AddScore(int points)
+    {
+        score+=points;
+        scoreText.text = score.ToString();
+    }
+    public string GetScore()
+    {
+        return score==0?"Better Luck Next Time":"You Scored:"+score.ToString();
+    }
+    public void Retry()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void GameOver()
+    {
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0.5f;
+        GameOverText.text = GetScore();
     }
 }

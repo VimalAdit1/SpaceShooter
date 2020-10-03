@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   gunName: Rifle
-  noOfBullets: 0
-  timeBetweenShots: 0.15
-  bulletPrefab: {fileID: 4811492267249317782, guid: 2d35e9688767be6418a256100ba772e4,
+  noOfBullets: 1
+  timeBetweenShots: 0.01
+  bulletPrefab: {fileID: 4811492267249317782, guid: de07fcf08fde38e4f8105ccba2bdbade,
     type: 3}
   gunPoint: {fileID: 0}
+  spreadAngle: 0

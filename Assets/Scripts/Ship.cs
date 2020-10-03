@@ -10,11 +10,14 @@ public class Ship : MonoBehaviour
     public float offset = 0f;
     public GameObject bulletPrefab;
     public GameObject gunPoint;
+    public GameManager gameManager;
+    public Gun[] guns;
     public Gun selected;
     float timeBetweenShots;
     float next;
     public ParticleSystem left;
     public ParticleSystem right;
+    public Joystick joystick;
 
     bool dash = false;
     Rigidbody2D rb;
@@ -24,15 +27,20 @@ public class Ship : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         direction = new Vector2(0f,0f);
         next = Time.time;
-        updateTimeBetweenShots();
-        selected.gunPoint = this.gunPoint;
+        SelectGun(0);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Code for PC
+        /*
         direction.x = Input.GetAxis("Horizontal");
         direction.y = Input.GetAxis("Vertical");
+        */
+        //Code for Touch supported devices
+        direction.x = joystick.Horizontal;
+        direction.y = joystick.Vertical;
         dash = Input.GetButtonDown("Jump");
     }
     private void FixedUpdate()
@@ -67,6 +75,20 @@ public class Ship : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.collider.name);
+        if(collision.collider.CompareTag("PowerUp"))
+        {
+            int gunNo = collision.collider.GetComponent<PowerUp>().gunNo;
+            SelectGun(gunNo);
+            gameManager.spawnPowerup = true;
+            gameManager.nextPowerup = Time.time + 5f;
+        }
+    }
+
+    private void SelectGun(int gunNo)
+    {
+        this.selected = guns[gunNo];
+        gameManager.selectedGun = gunNo;
+        updateTimeBetweenShots();
+        selected.gunPoint = this.gunPoint;
     }
 }

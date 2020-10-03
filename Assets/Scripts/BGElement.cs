@@ -15,7 +15,7 @@ public class BGElement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if((this.transform.position-player.transform.position).sqrMagnitude>2000)
+        if((this.transform.position-player.transform.position).sqrMagnitude>20000)
         {
             gameManager.noOfBGElements--;
             Destroy(gameObject);
