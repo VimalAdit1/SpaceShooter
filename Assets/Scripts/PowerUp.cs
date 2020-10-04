@@ -32,6 +32,7 @@ public class PowerUp : MonoBehaviour
                 {
                     indicator.SetActive(true);
                     indicator.transform.position = ray.point;
+                    indicator.transform.up = transform.position - indicator.transform.position;
                 }
             }
         }

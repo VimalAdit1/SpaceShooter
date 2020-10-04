@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4165111342460053822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0.6248, y: 0.0415, z: 0}
+  m_LocalScale: {x: 0.25564575, y: 0.41696012, z: 1}
   m_Children: []
   m_Father: {fileID: 5221848798835634606}
   m_RootOrder: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5442fd3f8edccd940afc7b7b5ae12355, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63193e38dc7b90d4298251aaa86e0aa6, type: 3}
   m_Color: {r: 0.8773585, g: 0.82661384, b: 0.10346207, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5221848798835634605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -458.37488, y: 1.4430596, z: -5.21891}
+  m_LocalPosition: {x: -458.37488, y: 1.4430596, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4165111342460053793}
@@ -332,4 +332,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 4165111342460053822}
   player: {fileID: 0}
+  gameManager: {fileID: 0}
   gunNo: 0
