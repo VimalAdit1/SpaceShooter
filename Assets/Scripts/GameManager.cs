@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverScreen;
     public Text scoreText;
     public Text GameOverText;
+    public Text highScoreText;
+    public Text GameOverHiText;
     public int noOfObstacles=0;
     public int noOfBGElements=0;
     public int selectedGun;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(false);
         score = 0;
         scoreText.text = "0";
+        highScoreText.text=highScore().ToString();
     }
 
     // Update is called once per frame
@@ -71,7 +74,7 @@ public class GameManager : MonoBehaviour
         GameObject obstacle = Instantiate(obstacles[0], point,Quaternion.identity);
         Enemy e = obstacle.GetComponent<Enemy>();
         e.player = player;
-        e.speed = 7f;
+        e.speed = 3f;
         e.gameManager = this;
         noOfObstacles++;
     }
@@ -79,10 +82,20 @@ public class GameManager : MonoBehaviour
     {
         score+=points;
         scoreText.text = score.ToString();
+        highScoreText.text = highScore().ToString();
     }
     public string GetScore()
     {
         return score==0?"Better Luck Next Time":"You Scored:"+score.ToString();
+    }
+    public string GetHighScore()
+    {
+        string message="";
+        if(highScore()==score)
+        {
+            message="New!!!";
+        }
+        return message+"High Score:"+highScore().ToString();
     }
     public void Retry()
     {
@@ -94,5 +107,16 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(true);
         Time.timeScale = 0.5f;
         GameOverText.text = GetScore();
+        GameOverHiText.text = GetHighScore();
+    }
+    public int highScore()
+    {
+        int highScore = PlayerPrefs.GetInt("highScore",0);
+        if(highScore<score)
+        {
+            PlayerPrefs.SetInt("highScore",score);
+            highScore=score;
+        }
+        return highScore;
     }
 }

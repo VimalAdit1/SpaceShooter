@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     public GameObject player;
     public GameObject indicator;
+    public GameObject explosionEffect;
     public GameManager gameManager;
     public float speed = 1f;
     bool destroyed = false;
@@ -58,8 +59,11 @@ public class Enemy : MonoBehaviour
                 gameManager.noOfObstacles--;
                 gameManager.AddScore(20);
                 destroyed = true;
+                
             }
             Destroy(gameObject);
+            GameObject explosion = Instantiate(explosionEffect,transform.position,Quaternion.identity);
+            
         }
         else if(collision.collider.CompareTag("Player"))
         {

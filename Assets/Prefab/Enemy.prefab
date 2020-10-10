@@ -181,6 +181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   indicator: {fileID: 1289684302439047889}
+  explosionEffect: {fileID: 2916350824578202292, guid: 7f6079856ebe02443b3cd929e3ba27f7,
+    type: 3}
   gameManager: {fileID: 0}
   speed: 1
 --- !u!96 &6314074264043963721

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: Shotty
   noOfBullets: 6
-  timeBetweenShots: 0.8
+  timeBetweenShots: 0.4
   bulletPrefab: {fileID: 4811492267249317782, guid: 4aa61aeea3ef6c945b76297fa73e5a0f,
     type: 3}
   gunPoint: {fileID: 0}

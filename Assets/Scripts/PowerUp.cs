@@ -24,7 +24,6 @@ public class PowerUp : MonoBehaviour
     {
         if (!renderer.isVisible)
         {
-            Debug.Log("Invisible");
             RaycastHit2D ray = Physics2D.Raycast(transform.position, player.transform.position - transform.position);
             if (ray.collider != null)
             {
