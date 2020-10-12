@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] obstacles;
     public GameObject powerUp;
     public GameObject gameOverScreen;
+    public GameObject pauseMenu;
     public Text scoreText;
     public Text GameOverText;
     public Text highScoreText;
@@ -16,6 +17,10 @@ public class GameManager : MonoBehaviour
     public int noOfObstacles=0;
     public int noOfBGElements=0;
     public int selectedGun;
+    public float minSpeed = 3f;
+    public float maxSpeed = 7f;
+    public int minObstacles = 5;
+    public float speed;
     int score;
     public float nextPowerup;
     public bool spawnPowerup;
@@ -29,6 +34,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         scoreText.text = "0";
         highScoreText.text=highScore().ToString();
+        speed = minSpeed;
     }
 
     // Update is called once per frame
@@ -38,7 +44,7 @@ public class GameManager : MonoBehaviour
         {
             noOfObstacles = 0;
         }
-        if(noOfObstacles<5)
+        if(noOfObstacles<minObstacles)
         {
             spawnObstacle();
         }
@@ -49,7 +55,7 @@ public class GameManager : MonoBehaviour
         }
        
     }
-
+    //GameLoop
     private void spawnPowerUp()
     {
             Vector3 point = (Random.insideUnitSphere * spawnRadius) + player.transform.position;
@@ -74,15 +80,24 @@ public class GameManager : MonoBehaviour
         GameObject obstacle = Instantiate(obstacles[0], point,Quaternion.identity);
         Enemy e = obstacle.GetComponent<Enemy>();
         e.player = player;
-        e.speed = 3f;
+        e.speed = speed;
         e.gameManager = this;
         noOfObstacles++;
     }
+    //Score
     public void AddScore(int points)
     {
         score+=points;
         scoreText.text = score.ToString();
         highScoreText.text = highScore().ToString();
+        if(speed<maxSpeed)
+        {
+            speed += 0.1f;
+        }
+        if(score%100==0)
+        {
+            minObstacles++; 
+        }
     }
     public string GetScore()
     {
@@ -96,11 +111,6 @@ public class GameManager : MonoBehaviour
             message="New!!!";
         }
         return message+"High Score:"+highScore().ToString();
-    }
-    public void Retry()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void GameOver()
     {
@@ -118,5 +128,35 @@ public class GameManager : MonoBehaviour
             highScore=score;
         }
         return highScore;
+    }
+    //UI
+    public void Retry()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
+    public void Play()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void Quit()
+    {
+        Application.Quit();
+    }
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
+    }
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
     }
 }

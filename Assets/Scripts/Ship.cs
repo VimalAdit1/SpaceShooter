@@ -52,8 +52,8 @@ public class Ship : MonoBehaviour
             rb.AddForce(direction*speed, ForceMode2D.Force);
             transform.rotation = Quaternion.Euler(0f, 0f, rotation+offset);
             shoot();
-            left.startLifetime = Mathf.Clamp(0.5f * rb.velocity.magnitude,0,1);
-            right.startLifetime = Mathf.Clamp(0.5f * rb.velocity.magnitude, 0, 1);
+            left.startLifetime = Mathf.Clamp(0.5f * rb.velocity.magnitude,0,1.2f);
+            right.startLifetime = Mathf.Clamp(0.5f * rb.velocity.magnitude, 0,1.2f);
         }
         else
         {
