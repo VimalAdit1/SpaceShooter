@@ -28,6 +28,7 @@ public class Ship : MonoBehaviour
         direction = new Vector2(0f,0f);
         next = Time.time;
         SelectGun(0);
+        transform.position = new Vector3(Random.Range(0, 100), Random.Range(0, 100), 0);
     }
 
     // Update is called once per frame

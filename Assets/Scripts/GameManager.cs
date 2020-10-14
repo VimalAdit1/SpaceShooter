@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         nextPowerup = 0;
         spawnPowerup = true;
         gameOverScreen.SetActive(false);
@@ -114,6 +115,8 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+
+        Handheld.Vibrate();
         gameOverScreen.SetActive(true);
         Time.timeScale = 0.5f;
         GameOverText.text = GetScore();
