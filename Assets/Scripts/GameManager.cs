@@ -22,13 +22,13 @@ public class GameManager : MonoBehaviour
     public int minObstacles = 5;
     public float speed;
     int score;
+    int selected = 0;
     public float nextPowerup;
     public bool spawnPowerup;
     public Color[] colors;
     // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = 60;
         nextPowerup = 0;
         spawnPowerup = true;
         gameOverScreen.SetActive(false);
@@ -162,4 +162,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
     }
+   
 }

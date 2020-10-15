@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -63,7 +61,7 @@ public class Enemy : MonoBehaviour
             }
             Destroy(gameObject);
             GameObject explosion = Instantiate(explosionEffect,transform.position,Quaternion.identity);
-            
+            Destroy(explosion, 3f);
         }
         else if(collision.collider.CompareTag("Player"))
         {
