@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverScreen;
     public GameObject pauseMenu;
     public Text scoreText;
+    public Text coinsText;
     public Text GameOverText;
     public Text highScoreText;
     public Text GameOverHiText;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     int selected = 0;
     public float nextPowerup;
     public bool spawnPowerup;
+    int coins;
     public Color[] colors;
     // Start is called before the first frame update
     void Start()
@@ -36,6 +39,8 @@ public class GameManager : MonoBehaviour
         scoreText.text = "0";
         highScoreText.text=highScore().ToString();
         speed = minSpeed;
+        coins = PlayerPrefs.GetInt("Coins", 0);
+        coinsText.text = coins.ToString();
     }
 
     // Update is called once per frame
@@ -59,7 +64,7 @@ public class GameManager : MonoBehaviour
     //GameLoop
     private void spawnPowerUp()
     {
-            Vector3 point = (Random.insideUnitSphere * spawnRadius) + player.transform.position;
+            Vector3 point = (UnityEngine.Random.insideUnitSphere * spawnRadius) + player.transform.position;
             point.z = 0f;
             GameObject obstacle = Instantiate(powerUp, point, Quaternion.identity);
             PowerUp p = obstacle.GetComponent<PowerUp>();
@@ -68,7 +73,7 @@ public class GameManager : MonoBehaviour
             int gun;
             do
             {
-                gun = Random.Range(0, 3);
+                gun = UnityEngine.Random.Range(0, 3);
             } while (gun == selectedGun);
             p.gunNo = gun;
             p.GetComponent<SpriteRenderer>().color = colors[gun];
@@ -76,7 +81,7 @@ public class GameManager : MonoBehaviour
 
     private void spawnObstacle()
     {
-        Vector3 point = (Random.insideUnitSphere * spawnRadius) + player.transform.position;
+        Vector3 point = (UnityEngine.Random.insideUnitSphere * spawnRadius) + player.transform.position;
         point.z = 0f;
         GameObject obstacle = Instantiate(obstacles[0], point,Quaternion.identity);
         Enemy e = obstacle.GetComponent<Enemy>();
@@ -99,7 +104,16 @@ public class GameManager : MonoBehaviour
         {
             minObstacles++; 
         }
+        AddCoins(points/2);
     }
+
+    private void AddCoins(int no)
+    {
+        coins += no;
+        PlayerPrefs.SetInt("Coins", coins);
+        coinsText.text = coins.ToString();
+    }
+
     public string GetScore()
     {
         return score==0?"Better Luck Next Time":"You Scored:"+score.ToString();
@@ -115,8 +129,6 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
-
-        Handheld.Vibrate();
         gameOverScreen.SetActive(true);
         Time.timeScale = 0.5f;
         GameOverText.text = GetScore();
@@ -156,6 +168,10 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
+    }
+    public void Reset()
+    {
+        PlayerPrefs.DeleteAll();
     }
     public void Pause()
     {

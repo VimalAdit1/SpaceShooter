@@ -22,6 +22,6 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - Vector1_226F7986: 1000
-    - Vector1_FEC9D51F: 23.61
+    - Vector1_FEC9D51F: 29.4
     m_Colors:
-    - Color_A76D11FD: {r: 28.518948, g: 28.518948, b: 28.518948, a: 0}
+    - Color_A76D11FD: {r: 101.66631, g: 101.66631, b: 101.66631, a: 0}

@@ -18,8 +18,8 @@ public class Ship : MonoBehaviour
     public ParticleSystem left;
     public ParticleSystem right;
     public Joystick joystick;
+    public int price;
 
-    bool dash = false;
     Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
@@ -42,7 +42,6 @@ public class Ship : MonoBehaviour
         //Code for Touch supported devices
         direction.x = joystick.Horizontal;
         direction.y = joystick.Vertical;
-        dash = Input.GetButtonDown("Jump");
     }
     private void FixedUpdate()
     {
