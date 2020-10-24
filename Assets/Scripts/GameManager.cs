@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         Vector3 point = (UnityEngine.Random.insideUnitSphere * spawnRadius) + player.transform.position;
         point.z = 0f;
         GameObject obstacle = Instantiate(obstacles[0], point,Quaternion.identity);
-        Enemy e = obstacle.GetComponent<Enemy>();
+        Enemy e = obstacle.GetComponentInChildren<Enemy>();
         e.player = player;
         e.speed = speed;
         e.gameManager = this;

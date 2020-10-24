@@ -34,12 +34,10 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Code for PC
-        /*
+       /*
         direction.x = Input.GetAxis("Horizontal");
         direction.y = Input.GetAxis("Vertical");
-        */
-        //Code for Touch supported devices
+       */
         direction.x = joystick.Horizontal;
         direction.y = joystick.Vertical;
     }

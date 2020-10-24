@@ -66,6 +66,9 @@ public class Enemy : MonoBehaviour
         else if(collision.collider.CompareTag("Player"))
         {
             gameManager.GameOver();
+            Destroy(collision.collider.gameObject);
+            GameObject explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(explosion, 3f);
         }
         
     }
