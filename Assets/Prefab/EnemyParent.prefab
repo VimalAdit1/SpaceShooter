@@ -133,6 +133,8 @@ MonoBehaviour:
   indicator: {fileID: 684744232456805337}
   explosionEffect: {fileID: 2916350824578202292, guid: 7f6079856ebe02443b3cd929e3ba27f7,
     type: 3}
+  spawnEffect: {fileID: 484598578102602359, guid: 3d262c0ba05d6fe4d92d04b7f39b569d,
+    type: 3}
   gameManager: {fileID: 0}
   speed: 1
 --- !u!96 &4477438198738715246
@@ -175,7 +177,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Time: 5
+  m_Time: 0.5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -183,8 +185,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.016948208
-        value: 0.1015625
+        time: 0.003543362
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -192,8 +194,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.88813555
-        value: 0.0078125
+        time: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -232,8 +234,8 @@ TrailRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 1
+    numCapVertices: 1
     alignment: 1
     textureMode: 0
     shadowBias: 0.5

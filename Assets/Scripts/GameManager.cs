@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkInput();
         if(noOfObstacles<0)
         {
             noOfObstacles = 0;
@@ -61,6 +62,29 @@ public class GameManager : MonoBehaviour
         }
        
     }
+
+    private void checkInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pauseMenu.active)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            if (gameOverScreen.active)
+            {
+                Retry();
+            }
+        }
+    }
+
     //GameLoop
     private void spawnPowerUp()
     {

@@ -34,12 +34,13 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       /*
+        
         direction.x = Input.GetAxis("Horizontal");
         direction.y = Input.GetAxis("Vertical");
-       */
+       /*
         direction.x = joystick.Horizontal;
         direction.y = joystick.Vertical;
+        */
     }
     private void FixedUpdate()
     {

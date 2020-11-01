@@ -12,6 +12,7 @@ public class Shopmanager : MonoBehaviour
     public Button play;
     public Text coinsText;
     public Text scoreText;
+    public GameManager gameManager;
     int selected;
     int coins;
     String owned;
@@ -33,10 +34,31 @@ public class Shopmanager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkinput();
         right.interactable = !(selected == ships.Length - 1);
         left.interactable = !(selected == 0);
         coinsText.text = coins.ToString();
     }
+
+    private void checkinput()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            Right();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            Left();
+        }
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            if (play.interactable)
+            { 
+                gameManager.Play();
+            }
+        }
+    }
+
     void changeShip(int index)
     {
         for(int i=0;i<ships.Length;i++)
